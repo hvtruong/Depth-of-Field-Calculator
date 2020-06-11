@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     TextView textView;
     LensManager lensManager = LensManager.getInstance();
-    int LAUNCH_SECOND_ACTIVITY = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             Intent i = new Intent(MainActivity.this, LensDetail.class);
-            startActivityForResult(i,LAUNCH_SECOND_ACTIVITY);
+            startActivityForResult(i,1);
         });
     }
 
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+        if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 String lensName = data.getStringExtra("make");
                 int focalLength = Integer.parseInt(data.getStringExtra("focalLength"));
