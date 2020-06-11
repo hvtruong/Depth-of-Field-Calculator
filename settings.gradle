@@ -1,0 +1,2 @@
+rootProject.name='Depth Of Field Calculator'
+include ':app'
