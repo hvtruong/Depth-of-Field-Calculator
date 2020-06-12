@@ -20,6 +20,9 @@ public class DepthOfFieldCalculator {
     }
 
     public double nearFocalPoint (){
+        if(this.hyperfocalDistance() <= distance){
+            return Double.POSITIVE_INFINITY;
+        }
         return  (this.hyperfocalDistance() * distance) / (this.hyperfocalDistance() +
                 (distance - lens.getFocalLength()));
     }

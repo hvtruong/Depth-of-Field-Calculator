@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ public class LensDetail extends AppCompatActivity {
 
     static boolean editLens;
     static int lensID;
+    static Context newContext;
     LensManager lensManager = LensManager.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,31 +49,36 @@ public class LensDetail extends AppCompatActivity {
 
         Intent returnIntent = new Intent(LensDetail.this, MainActivity.class);
 
+       if(editLens != true) {
+           setResult(Activity.RESULT_OK, returnIntent);
+           lensManager.add(new Lens(lensName, Double.parseDouble(aperture), Integer.parseInt(focalLength)));
+       }
+       else{
+           lensManager.getLens(lensID).setMake(lensName);
+           lensManager.getLens(lensID).setMaximumAperture(Double.parseDouble(aperture));
+           lensManager.getLens(lensID).setFocalLength(Integer.parseInt(focalLength));
+
+           TextView textView10 = (TextView) ((Activity)newContext).findViewById(R.id.textView10);
+           textView10.setText(lensManager.getLens(lensID).toString());
+           setResult(Activity.RESULT_CANCELED,returnIntent);
+       }
+
         returnIntent.putExtra("make",lensName);
         returnIntent.putExtra("focalLength",focalLength);
         returnIntent.putExtra("aperture",aperture);
 
-        if(editLens != true) {
-            setResult(Activity.RESULT_OK, returnIntent);
-            lensManager.add(new Lens(lensName, Double.parseDouble(aperture), Integer.parseInt(focalLength)));
-        }
-        else{
-            lensManager.getLens(lensID).setMake(lensName);
-            lensManager.getLens(lensID).setMaximumAperture(Double.parseDouble(aperture));
-            lensManager.getLens(lensID).setFocalLength(Integer.parseInt(focalLength));
-
-            setResult(Activity.RESULT_CANCELED,returnIntent);
-        }
         this.finish();
     }
 
     public static Intent makeLensDetailIntent(Context context){
         Intent newIntent = new Intent(context, LensDetail.class);
+        editLens = false;
         return newIntent;
     }
 
     public static Intent makeEditIntent(Context context, int ID){
         Intent intent = new Intent(context, LensDetail.class);
+        newContext = context;
         editLens = true;
         lensID = ID;
         return intent;

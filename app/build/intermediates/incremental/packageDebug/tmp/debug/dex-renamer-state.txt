@@ -1,4 +1,4 @@
-#Fri Jun 12 12:26:42 PDT 2020
+#Fri Jun 12 14:47:54 PDT 2020
 base.0=C\:\\Users\\Viete\\AndroidStudioProjects\\DepthOfFieldCalculator4\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex
 path.1=classes.dex
 renamed.1=classes2.dex

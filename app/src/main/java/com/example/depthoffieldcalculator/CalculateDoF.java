@@ -24,7 +24,7 @@ public class CalculateDoF extends AppCompatActivity {
     Lens chosenLens;
     int lensID;
     EditText edit4, edit5, edit6;
-    TextView textView14, textView15, textView16, textView17;
+    TextView textView14, textView15, textView16, textView17, textView10;
     LensManager lensManager = LensManager.getInstance();
 
     @Override
@@ -37,7 +37,8 @@ public class CalculateDoF extends AppCompatActivity {
 
         extractDataFromIntent();
 
-        TextView textView10 = findViewById(R.id.textView10);
+        chosenLens = lensManager.getLens(lensID);
+        textView10 = findViewById(R.id.textView10);
         textView10.setText(chosenLens.toString());
 
         edit4 = (EditText) findViewById(R.id.editText4);
@@ -49,6 +50,7 @@ public class CalculateDoF extends AppCompatActivity {
         textView16 = findViewById(R.id.textView16);
         textView17 = findViewById(R.id.textView17);
     }
+
 
     public void calculateDoF(View v){
 
@@ -116,7 +118,6 @@ public class CalculateDoF extends AppCompatActivity {
                 setResult(Activity.RESULT_CANCELED,backIntent);
                 Lens subLens = lensManager.getLens(lensID);
 
-                TextView textView10 = findViewById(R.id.textView10);
                 textView10.setText(subLens.toString());
                 this.finish();
             }
