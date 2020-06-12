@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            Intent i = new Intent(MainActivity.this, LensDetail.class);
+            Intent i = LensDetail.makeLensDetailIntent(MainActivity.this);
             startActivityForResult(i,1);
         });
     }
@@ -65,27 +65,25 @@ public class MainActivity extends AppCompatActivity {
                 String lensName = data.getStringExtra("make");
                 int focalLength = Integer.parseInt(data.getStringExtra("focalLength"));
                 double aperture = Double.parseDouble(Objects.requireNonNull(data.getStringExtra("aperture")));
-
-                lensManager.add(new Lens(lensName,aperture,focalLength));
             }
             this.updateUI();
-            if(lensManager.size() == 0){
-                Toast.makeText(MainActivity.this, "OHH NO! Your lens list is empty now \n Please click the button on the right to add a new lens!",Toast.LENGTH_LONG).show();
-            }
         }
     }
 
     private void updateUI(){
         ArrayList<String> arrayList = new ArrayList<>();
+        TextView textView19 = findViewById(R.id.textView19);
         for(int i = 0; i < lensManager.size();i++){
             arrayList.add(lensManager.getLens(i).toString());
         }
 
         if(lensManager.size() != 0){
             textView.setText("Select a lens to use:");
+            textView19.setText("");
         }
         else{
             textView.setText("");
+            textView19.setText("OHH NO! Your lens list is empty now \n Please click the add button below to add a new lens!");
         }
 
         TextView textView18 = (TextView) findViewById(R.id.textView18);

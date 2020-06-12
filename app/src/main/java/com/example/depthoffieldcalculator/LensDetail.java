@@ -51,8 +51,10 @@ public class LensDetail extends AppCompatActivity {
         returnIntent.putExtra("focalLength",focalLength);
         returnIntent.putExtra("aperture",aperture);
 
-        if(editLens != true)
-            setResult(Activity.RESULT_OK,returnIntent);
+        if(editLens != true) {
+            setResult(Activity.RESULT_OK, returnIntent);
+            lensManager.add(new Lens(lensName, Double.parseDouble(aperture), Integer.parseInt(focalLength)));
+        }
         else{
             lensManager.getLens(lensID).setMake(lensName);
             lensManager.getLens(lensID).setMaximumAperture(Double.parseDouble(aperture));
@@ -61,6 +63,11 @@ public class LensDetail extends AppCompatActivity {
             setResult(Activity.RESULT_CANCELED,returnIntent);
         }
         this.finish();
+    }
+
+    public static Intent makeLensDetailIntent(Context context){
+        Intent newIntent = new Intent(context, LensDetail.class);
+        return newIntent;
     }
 
     public static Intent makeEditIntent(Context context, int ID){

@@ -114,6 +114,10 @@ public class CalculateDoF extends AppCompatActivity {
 
                 Intent backIntent = new Intent(CalculateDoF.this,MainActivity.class);
                 setResult(Activity.RESULT_CANCELED,backIntent);
+                Lens subLens = lensManager.getLens(lensID);
+
+                TextView textView10 = findViewById(R.id.textView10);
+                textView10.setText(subLens.toString());
                 this.finish();
             }
         }
